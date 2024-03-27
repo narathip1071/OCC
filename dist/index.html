@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <!-- <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no"
+    /> -->
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <!-- <meta name="viewport" content="height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/8.10.1/firebase-storage.min.js"></script>
+    <link rel="icon" type="image/png" href="./NewIcons/logo.png" />
+    <meta name="description" content="Free online whiteboard" />
+    <title>OCC</title>
+    <link rel="stylesheet" href="style1.css" />
+    <script src="jsDraw/html2canvas.js"></script>
+
+    <script>
+      let sendState = false;
+
+      const firebaseConfig = {
+      apiKey: "AIzaSyA1oa_0wH24tHXoyBroWFgcy-wvL6E7jZA",
+      authDomain: "human-error-ex.firebaseapp.com",
+      databaseURL: "https://human-error-ex-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "human-error-ex",
+      storageBucket: "human-error-ex.appspot.com",
+      messagingSenderId: "12403789009",
+      appId: "1:12403789009:web:58223534d241ab6e1749f0",
+      measurementId: "G-RQQRFNHM58"
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      // const storage = firebase.getStorage();
+      var storageRef = firebase.storage().ref();
+
+      img = document.getElementById("img1");
+
+      function sendMessage() {
+        if (sendState) {
+          downloadCanvas(this);
+          // autoDownloadCanvas();
+          window.location.href = "index1.html"
+        }
+      }
+
+      async function downloadCanvas(el) {
+        var canvas = document.getElementById("canvas");
+        const imageURI = canvas.toDataURL("image/png");
+        // el.href = imageURI;
+
+        var imageRef = storageRef.child(`${new Date().getTime()}.png`);
+        imageRef.putString(imageURI, "data_url").then(function (snapshot) {
+          console.log("Uploaded a data_url string!");
+          window.location.href = "index1.html";
+        });
+      }
+
+      async function autoDownloadCanvas() {
+        var canvas = document.getElementById("canvas");
+        let link = document.getElementById("link");
+        var dataURL = canvas.toDataURL({ pixelRatio: 1000 });
+        link.setAttribute("download", `${new Date().getTime()}.png`);
+        link.setAttribute("href", canvas.toDataURL("image/png", 1.0));
+        link.click();
+        delete link;
+      }
+    </script>
+  </head>
+
+  <body>
+
+    <div id="main"> 
+      <div id="menubar">
+        <img id="Texticon" src="act/Tact.png" onclick="TextPage()">
+        <img id="Drawicon" src="non/D.png" onclick="DrawPage()">
+      </div>
+    </div>
+    <!-- <div id="menubar">
+      <button id="TextButton" onclick="TextPage()">Text</button>
+      <button id="DrawButton" onclick="DrawPage()">Draw</button>
+    </div> -->
+    
+
+    <!----------------------------------------------------------------------- Text Zone ---------------------------------------------------------------->
+    <div class="Text_Zone"> 
+      <div class="Text_Container">
+      <section id="textinput">
+        <p>Name</p>
+          <input 
+            id="nametext" type="text" class="css-input" placeholder="Input Your Name?" maxlength="50"
+          ><br>
+        <p>Text</p>
+          <input
+            id="humantext" type="text" class="css-input" placeholder="Input Your Text?" maxlength="50"
+          />
+      </section>
+      </div> 
+      <div class="send">
+        <button id="summitme">
+          <img  src="./picture/send.png" alt="Submit">
+        </button>
+      </div>     
+  </div>
+  
+
+ 
+
+<!----------------------------------------------------------------------- Draw Zone ---------------------------------------------------------------->
+<div class="Draw_Zone">
+
+    <a id="testText1" style="position: absolute; top: 0; display: none">x,y</a>
+    <a id="testText2" style="position: absolute; top: 20px; display: none">x,y</a>
+    <a id="testText3" style="position: absolute; top: 40px; display: none">x,y</a>
+
+    <a id="link"></a>
+  <div class="drawName">
+    <input 
+      id="drawtext" type="text" class="css-input" placeholder=" Name?" maxlength="50"
+    ><br>
+  </div>
+    <div class="drawing-container">
+      <canvas id="canvas" ></canvas>
+      
+    </div>
+    <div class="container">
+    <div class="tools-container">
+      <div class="tools-content">
+        <div class="tool active-tool" id="pen">
+          <img src="./NewIcons/pen-clip-svgrepo-com.svg" alt="" />
+          <div class="tool-options hide">
+            <div class="pen-size">
+              <input type="range" id="pensize" value="10" min="5" max="40" />
+            </div>
+            <div class="pen-colors">
+              <div class="black"></div>
+              <div class="purple"></div>
+              <div class="blue"></div>
+              <div class="green"></div>
+              <div class="red"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tool fade" id="eraser">
+          <img src="./NewIcons/eraser-svgrepo-com.svg" alt="" />
+          <div class="tool-options2 hide">
+            <div class="eraser-size">
+              <input
+                type="range"
+                id="erasersize"
+                value="25"
+                min="10"
+                max="40"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="tool fade tap" id="clear">
+          <img src="./NewIcons/bin-delete-recycle-svgrepo-com.svg" alt="" />
+        </div>
+        <div class="tool" id="undo">
+          <img src="./NewIcons/undo-left-round-svgrepo-com.svg" alt="" />
+        </div>
+        <div class="tool" id="redo">
+          <img src="./NewIcons/undo-right-round-svgrepo-com.svg" alt="" />
+        </div>
+      </div>
+      <div class="tool toolSend" id="send">
+        <img src="./picture/send.png" alt="" />
+      </div>
+    </div>
+    </div>
+    
+</div>
+
+<!----------------------------------------------------------------------- script---------------------------------------------------------------->
+
+    <script src="jsDraw/script.js"></script>
+    <script src="jsDraw/Tool.js"></script>
+    <!-- <script src="./js/sticky.js"></script>
+    <script src="./js/img.js"></script> -->
+    <script src="jsDraw/drawingTool.js"></script>
+    <script src="jsText/main.js?v=4"></script>
+    <script src="ScriptTD.js"></script>
+
+    <script>
+      let t = new Date().getTime();
+
+      document.querySelector("#send").addEventListener("click", (e) => {
+        sendState = true;
+        t = new Date().getTime();
+        let send = document.querySelector("#eraser");
+        // document.getElementById("send").style.display = "none";
+
+        document.getElementById("send").style.opacity = "0.1";
+        document.getElementById("send").style.transform = "scale(0.8)";
+
+        // send.style.display = "#none";
+
+        sendMessage();
+        clearScreen();
+      });
+
+      setInterval(() => {
+        if (new Date().getTime() - t > 3000) {
+          document.getElementById("send").style.opacity = "1";
+          document.getElementById("send").style.transform = "scale(1.0)";
+        }
+      }, 100);
+    </script>
+
+    <script>
+      document.body.addEventListener("wheel", (e) => {
+        if (e.ctrlKey) e.preventDefault(); //prevent zoom
+      });
+      document.addEventListener(
+        "touchmove",
+        function (event) {
+          if (event.scale !== 1) {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+    </script>
+
+  </body>
+</html>

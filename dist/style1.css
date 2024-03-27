@@ -1,0 +1,366 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    -webkit-touch-callout: none; /* Safari */
+    -webkit-user-select: none; /* Chrome */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+  }
+  
+  body {
+    background-image: url('./picture/BG2.png');
+    /* background-size: cover; */
+    background-size: 100% auto;
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    background-color: rgb(61, 141, 157);
+    touch-action: manipulation;
+    text-align: center;
+  }
+  
+
+/* -----------------------------------------------------------------------Text page---------------------------------------------------- */
+#Texticon, #Drawicon {
+  width: 15%; 
+  padding: 2%;
+}
+
+#menubar {
+  position: fixed;
+  top: 5%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-10%);
+}
+
+.Text_Container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+#nametext {
+  text-align: center;
+  font-size: medium;
+  padding: 8px; 
+  border-radius : 20px; 
+  border: none;
+  
+}
+.send {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: auto; 
+  bottom: 10%; 
+}
+
+#summitme{
+  background-color: transparent;
+  border: none;
+  width: 20%;
+  height: 4%; ;
+  
+}
+#summitme img {
+  width: 100%;
+  height: 100%;
+}
+
+
+.Draw_Zone{
+  display: none;
+}
+
+
+
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+  .tools-container {
+    position: absolute;
+    bottom: 20%;
+    height: 100px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media only screen and (orientation: landscape) {
+    .tools-container {
+      height: 15vh;
+    }
+  }
+  
+   /* img {
+    pointer-events: none;
+  }  */
+ 
+  .tools-content {
+    height: 60%;
+    width: 70%;
+    /* border: 1px solid; */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: rgb(243, 242, 245);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1); /* เงา */
+    /* bottom: -20%; */
+  }
+  
+  @media only screen and (orientation: landscape) {
+    .tools-content {
+      width: 40%;
+    }
+  }
+  
+  .duration-1 {
+    transition-duration: 0.5s;
+    transition-property: background-color font-size transform color;
+    transition-timing-function: ease-in-out;
+  }
+  
+  .tool {
+    height: 55%;
+    width: 10%;
+    position: relative;
+  }
+  
+  .tap:active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  
+  .toolSend {
+    /* opacity: 1; */
+    position: fixed;
+    width: 20%;
+    height: 4%; ;
+    bottom: 10%;
+    text-align: center;
+  }
+
+  
+  .toolSend:active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  
+  .tool img {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .drawing-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 90vh; 
+  
+  }
+  
+  #canvas {
+    border : 1px solid white;
+    border-radius: 10px;
+    padding: 20px ;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+  .drawName{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    top: 15%;
+  }
+  #drawtext{
+    text-align: center;
+    font-size: large;
+    padding: 15px; 
+    width:45% ;
+    border: none;
+    border-radius : 30px; 
+    box-shadow: 0px -3px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  
+  .active-tool {
+    transform: scale(1.2);
+  }
+  
+  .fade {
+    opacity: 0.5;
+  }
+  
+  .tool-options {
+    height: 75px;
+    width: 100px;
+    position: absolute;
+    top: -100px;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 3px;
+    background: rgb(209, 214, 219);
+  }
+  
+  .tool-options2 {
+    height: 40px;
+    width: 100px;
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2px;
+    background: aliceblue;
+  }
+  
+  .hide {
+    display: none;
+  }
+  
+  
+  .pen-size input {
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .eraser-size input {
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .pen-colors {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  
+  .pen-colors div {
+    height: 20px;
+    width: 20px;
+    border-radius: 50px;
+    border: 0.2px solid #fff; 
+    cursor: pointer;
+  }
+  
+  .black {
+    background: black;
+  }
+  
+  .purple {
+    background: purple;
+  }
+  
+  .white {
+    background: white;
+  }
+  
+  .smokey {
+    background: #a9ba9d;
+  }
+  
+  .blue {
+    background: blue;
+  }
+  
+  .green {
+    background: green;
+  }
+  
+  .red {
+    background: red;
+  }
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+  
+  .logo {
+    width: 100vw;
+    position: absolute;
+  }
+  
+  .logo img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    width: 16vh;
+  }
+  /* 
+  @media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  } */
+  
+  @media only screen and (orientation: landscape) {
+    .logo img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 2vh;
+      width: 8vh;
+    }
+  }
+  
+  .area {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: red; */
+  }
+  
+  .vl {
+    position: absolute;
+    left: 35px;
+    border-left: 5px solid green;
+    height: 100vh;
+  }
+  
+  .wl {
+    position: absolute;
+    top: 100px;
+    border-top: 5px solid green;
+    width: 100vw;
+  }
+  
+  #particles-js {
+    width: 100%;
+    height: 100%;
+    background: #111111;
+  }
+  
